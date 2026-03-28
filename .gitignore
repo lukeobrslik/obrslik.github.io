@@ -1,0 +1,6 @@
+# Podklady - nenahrávat na web
+*.pdf
+*.pptx
+*.docx
+~$*
+.DS_Store
