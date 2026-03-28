@@ -374,6 +374,10 @@
             gap: 1rem;
         }
 
+        .contact-form.is-hidden {
+            display: none;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
@@ -408,6 +412,65 @@
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
+        }
+
+        .form-consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .form-consent input[type="checkbox"] {
+            margin-top: 0.2rem;
+            min-width: 16px;
+            min-height: 16px;
+            accent-color: var(--green);
+        }
+
+        .form-consent a {
+            color: var(--green);
+            text-decoration: underline;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .form-success.is-visible {
+            display: block;
+        }
+
+        .form-success-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--green-light);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .form-success-icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--green);
+        }
+
+        .form-success h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-success p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         .form-submit {
@@ -674,32 +737,62 @@
             </div>
 
             <!-- FORMULÁŘ -->
-            <form class="contact-form" id="contact-form" action="#" method="POST">
-                <input type="hidden" name="_subject" value="Nová zpráva z webu">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="">
-                <input type="text" name="_honey" style="display:none">
-                <div class="form-group">
-                    <label for="name">Jméno</label>
-                    <input type="text" id="name" name="name" placeholder="Vaše jméno" required>
+            <div>
+                <form class="contact-form" id="contact-form" action="#" method="POST" target="form-iframe">
+                    <input type="hidden" name="_subject" value="Nová zpráva z webu">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://obrslik.cz/#kontakt">
+                    <input type="text" name="_honey" style="display:none">
+                    <div class="form-group">
+                        <label for="name">Jméno</label>
+                        <input type="text" id="name" name="name" placeholder="Vaše jméno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="vas@email.cz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+420 ...">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Zpráva</label>
+                        <textarea id="message" name="message" placeholder="Popište prosím váš projekt nebo dotaz..." required></textarea>
+                    </div>
+                    <label class="form-consent">
+                        <input type="checkbox" id="gdpr-consent" required>
+                        <span>Souhlasím se <a href="#gdpr" id="gdpr-link">zpracováním osobních údajů</a> za účelem odpovědi na můj dotaz.</span>
+                    </label>
+                    <button type="submit" class="form-submit">
+                        Odeslat zprávu
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </form>
+                <iframe name="form-iframe" style="display:none"></iframe>
+
+                <div class="form-success" id="form-success">
+                    <div class="form-success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3>Zpráva odeslána</h3>
+                    <p>Děkuji za váš dotaz. Ozvu se vám co nejdříve.</p>
                 </div>
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="vas@email.cz" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Telefon</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+420 ...">
-                </div>
-                <div class="form-group">
-                    <label for="message">Zpráva</label>
-                    <textarea id="message" name="message" placeholder="Popište prosím váš projekt nebo dotaz..." required></textarea>
-                </div>
-                <button type="submit" class="form-submit">
-                    Odeslat zprávu
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                </button>
-            </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- GDPR INFO -->
+    <section id="gdpr" style="display:none; padding: 3rem 1.5rem; max-width: 960px; margin: 0 auto;">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Zásady zpracování osobních údajů</h2>
+        <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+            <p><strong>Správce údajů:</strong> Ing. Lukáš Obršlík, IČO: 24385590, Hornoměstská 143/48, 594 01 Velké Meziříčí</p>
+            <p><strong>Účel zpracování:</strong> Odpověď na váš dotaz odeslaný prostřednictvím kontaktního formuláře.</p>
+            <p><strong>Zpracovávané údaje:</strong> Jméno, e-mailová adresa, telefonní číslo, text zprávy.</p>
+            <p><strong>Právní základ:</strong> Váš souhlas (čl. 6 odst. 1 písm. a) GDPR).</p>
+            <p><strong>Doba uchování:</strong> Údaje budou uchovány po dobu nezbytnou pro vyřízení vašeho dotazu, nejdéle však 12 měsíců od odeslání.</p>
+            <p><strong>Příjemci údajů:</strong> Údaje nejsou předávány třetím stranám s výjimkou služby FormSubmit.co, která zajišťuje doručení formuláře.</p>
+            <p><strong>Vaše práva:</strong> Máte právo na přístup k údajům, jejich opravu, výmaz, omezení zpracování, právo vznést námitku a právo na přenositelnost údajů. Svůj souhlas můžete kdykoli odvolat. V případě dotazů mě kontaktujte na výše uvedeném e-mailu.</p>
+            <p><strong>Dozorový úřad:</strong> Úřad pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7, <a href="https://www.uoou.cz" style="color: var(--green);">www.uoou.cz</a></p>
         </div>
     </section>
 
@@ -707,6 +800,7 @@
     <footer>
         <div class="footer-inner">
             <p class="footer-copy">&copy; 2026 Ing. Lukáš Obršlík. Všechna práva vyhrazena.</p>
+            <a href="#gdpr" id="footer-gdpr-link" style="font-size: 0.8rem; color: var(--text-secondary); text-decoration: none;">Ochrana osobních údajů</a>
             <span class="footer-loxone">
                 <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
                 Postaveno na platformě Loxone
@@ -726,6 +820,28 @@
 
         var f=document.getElementById('contact-form');
         if(f){f.action='https://formsubmit.co/'+email;}
+
+        // Form submit — show Czech confirmation
+        if(f){
+            f.addEventListener('submit',function(){
+                setTimeout(function(){
+                    f.classList.add('is-hidden');
+                    document.getElementById('form-success').classList.add('is-visible');
+                },300);
+            });
+        }
+
+        // GDPR section toggle
+        function toggleGdpr(e){
+            e.preventDefault();
+            var sec=document.getElementById('gdpr');
+            sec.style.display=sec.style.display==='none'?'block':'none';
+            if(sec.style.display==='block'){sec.scrollIntoView({behavior:'smooth'});}
+        }
+        var gl=document.getElementById('gdpr-link');
+        if(gl){gl.addEventListener('click',toggleGdpr);}
+        var fl=document.getElementById('footer-gdpr-link');
+        if(fl){fl.addEventListener('click',toggleGdpr);}
     })();
     </script>
 
