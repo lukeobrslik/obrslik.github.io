@@ -821,6 +821,26 @@
         var f=document.getElementById('contact-form');
         if(f){f.action='https://formsubmit.co/'+email;}
 
+        // Czech validation messages
+        var msgs={
+            name:{valueMissing:'Prosím vyplňte vaše jméno.'},
+            email:{valueMissing:'Prosím vyplňte e-mailovou adresu.',typeMismatch:'Zadejte platnou e-mailovou adresu (např. vas@email.cz).'},
+            message:{valueMissing:'Prosím napište vaši zprávu.'},
+            'gdpr-consent':{valueMissing:'Pro odeslání je nutný souhlas se zpracováním osobních údajů.'}
+        };
+        var fields=f.querySelectorAll('[required]');
+        fields.forEach(function(field){
+            var m=msgs[field.id]||msgs[field.name]||{};
+            function setMsg(){
+                if(field.validity.valueMissing&&m.valueMissing){field.setCustomValidity(m.valueMissing);}
+                else if(field.validity.typeMismatch&&m.typeMismatch){field.setCustomValidity(m.typeMismatch);}
+                else{field.setCustomValidity('');}
+            }
+            field.addEventListener('invalid',setMsg);
+            field.addEventListener('input',function(){field.setCustomValidity('');});
+            if(field.type==='checkbox'){field.addEventListener('change',function(){field.setCustomValidity('');});}
+        });
+
         // Form submit — show Czech confirmation
         if(f){
             f.addEventListener('submit',function(){
@@ -844,6 +864,7 @@
         if(fl){fl.addEventListener('click',toggleGdpr);}
     })();
     </script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "68acc9d75c71441ba730806ee8e40e49"}'></script><!-- End Cloudflare Web Analytics -->
 
 </body>
 </html>
